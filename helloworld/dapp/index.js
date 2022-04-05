@@ -2,10 +2,10 @@
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545/'));
 
 // Contract address and Abi
-var contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
+var contractAddress = '0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82';
 let currentAccount;
 
-const abi = [
+const abi =  [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -86,6 +86,13 @@ const abi = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "stateMutability": "payable",
     "type": "receive"
   }
@@ -149,7 +156,7 @@ function sayHelloMyName() {
 
 }
 
-//WEB3
+//Metamask
 document.addEventListener("DOMContentLoaded", function (event) {
 
   window.ethereum.on('accountsChanged', function (accounts) {
@@ -165,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     console.log(abi)
 
+    //https://docs.metamask.io/guide/ethereum-provider.html#using-the-provider
     ethereum.request({ method: "eth_requestAccounts" })
       .then(handleAccountsChanged)
       .catch((err) => console.error(err.message));
@@ -189,7 +197,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     ethereum.on("disconnect", (error) => {
       console.log(`Disconnected from network ${error}`);
     });
-
 
 
   } else {
@@ -221,7 +228,11 @@ function sendEther() {
     from: currentAccount,
     to: contractAddress,
     value: web3.utils.toWei(val, 'ether'),
-  });
+  }).on('transactionHash', function (hash) {
+    $('#info').text(hash);
+
+  }).on('error', console.error);
+
 }
 
 function sendEtherMetamask() {
@@ -258,7 +269,6 @@ function connectMetamask() {
 }
 
 //web3 example https://docs.metamask.io/guide/sending-transactions.html#example 
-
 function checkBalance() {
 
   contract.methods.getContractAmount(currentAccount).call().then(function (res) {
@@ -276,6 +286,20 @@ function areYouTheAdminMetamask() {
 
   contract.methods.areYouTheAdmin(currentAccount)
     .call().then((res) => {
+      $('#info').html(res);
+    })
+    .catch(revertReason => {
+      console.log({ revertReason });
+      $('#info').text(revertReason);
+    }
+    )
+}
+
+
+function withdraw() {
+  
+  contract.methods.withdraw().call().then((res) => {
+      console.dir(res)
       $('#info').html(res);
     })
     .catch(revertReason => {

@@ -534,6 +534,13 @@
     "@types/sinon-chai" "^3.2.3"
     "@types/web3" "1.0.19"
 
+"@nomiclabs/hardhat-web3@^2.0.0":
+  "integrity" "sha512-zt4xN+D+fKl3wW2YlTX3k9APR3XZgPkxJYf36AcliJn3oujnKEVRZaHu0PhgLjO+gR+F/kiYayo9fgd2L8970Q=="
+  "resolved" "https://registry.npmjs.org/@nomiclabs/hardhat-web3/-/hardhat-web3-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "@types/bignumber.js" "^5.0.0"
+
 "@resolver-engine/core@^0.3.3":
   "integrity" "sha512-eB8nEbKDJJBi5p5SrvrvILn4a0h42bKtbCTri3ZxCGt6UvoQyp7HnGOfki944bUjBSHKK3RvgfViHn+kqdXtnQ=="
   "resolved" "https://registry.npmjs.org/@resolver-engine/core/-/core-0.3.3.tgz"
@@ -669,6 +676,13 @@
   "integrity" "sha512-q5veSX6zjUy/DlDhR4Y4cU0k2Ar+DT2LUraP00T19WLmTO6Se1djepCCaqU6nQrwcJ5Hyo/CWqxTzrrFg8eqbQ=="
   "resolved" "https://registry.npmjs.org/@types/abstract-leveldown/-/abstract-leveldown-7.2.0.tgz"
   "version" "7.2.0"
+
+"@types/bignumber.js@^5.0.0":
+  "integrity" "sha512-0DH7aPGCClywOFaxxjE6UwpN2kQYe9LwuDQMv+zYA97j5GkOMo8e66LYT+a8JYU7jfmUFRZLa9KycxHDsKXJCA=="
+  "resolved" "https://registry.npmjs.org/@types/bignumber.js/-/bignumber.js-5.0.0.tgz"
+  "version" "5.0.0"
+  dependencies:
+    "bignumber.js" "*"
 
 "@types/bn.js@*":
   "integrity" "sha512-QSSVYj7pYFN49kW77o2s9xTCwZ8F2xLbjLLSEVh8D2F4JUhZtPAGOFLTD+ffqksBx/u4cE/KImFjyhqCjn/LIA=="
@@ -1675,7 +1689,7 @@
   "resolved" "https://registry.npmjs.org/bech32/-/bech32-1.1.4.tgz"
   "version" "1.1.4"
 
-"bignumber.js@^9.0.0":
+"bignumber.js@*", "bignumber.js@^9.0.0":
   "integrity" "sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw=="
   "resolved" "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.2.tgz"
   "version" "9.0.2"
@@ -7963,7 +7977,7 @@
     "underscore" "1.9.1"
     "utf8" "3.0.0"
 
-"web3@^1.7.1":
+"web3@^1.0.0-beta.36", "web3@^1.7.1":
   "integrity" "sha512-RKVdyZ5FuVEykj62C1o2tc0teJciSOh61jpVB9yb344dBHO3ZV4XPPP24s/PPqIMXmVFN00g2GD9M/v1SoHO/A=="
   "resolved" "https://registry.npmjs.org/web3/-/web3-1.7.1.tgz"
   "version" "1.7.1"

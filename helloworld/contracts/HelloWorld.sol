@@ -38,4 +38,9 @@ contract HelloWorld {
 	    return address(this).balance;
     }
 
+    function withdraw() external {
+      address payable to = payable(msg.sender);
+      to.transfer(getContractAmount(msg.sender));
+   }
+
 }
