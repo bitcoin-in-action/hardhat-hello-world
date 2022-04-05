@@ -4,7 +4,7 @@
     <title>WeSchool</title>
 
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./node_modules/web3/dist/web3.min.js"></script>
     <script src="./index.js"></script>    
   </head>
@@ -34,6 +34,7 @@
             </table>
           </div>
           <a href="#" onclick="areYouTheAdmin()" class="btn btn-primary">Set</a>
+          <a href="#" onclick="areYouTheAdminMetamask()" class="btn btn-primary">ByMetamask</a>
         </form>
       </div>
     </div>    
@@ -59,10 +60,70 @@
     </div> 
 
 <hr>
+
+
+<h3 style="color: orange;">Metamask Area</h3>
+  
+<p id="metamaskStatus"></p>
+
+<div class="row">
+  <div>
+    <h3 class="sub-header">Invia degli ether web3 ⚠️</h3>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td><label for="admin">Ether:</label> </td>
+            <td>
+              <input class="form-control" type="number" placeholder="0.00" min="0" step="0.01" id="ether" style="width:500px" required="true">
+            </td>                          
+          </tr>
+        </table>
+      </div>
+      <a href="#" onclick="sendEther()" class="btn btn-primary">Send</a>
+    </form>
+  </div>
+</div> 
+
+<div class="row">
+  <div>
+    <h3 class="sub-header">Invia degli ether metamask</h3>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td><label for="admin">Ether:</label> </td>
+            <td>
+              <input class="form-control" type="number" placeholder="0.00" min="0" step="0.01" id="etherMetamask" style="width:500px" required="true">
+            </td>                          
+          </tr>
+        </table>
+      </div>
+      <a href="#" onclick="sendEtherMetamask()" class="btn btn-primary">Send</a>
+    </form>
+  </div>
+</div> 
+
+<br>
+<div class="row">
+  <div>        
+    <a href="#" onclick="checkBalance()" class="btn btn-primary">Check Balance</a>
+  </div>
+</div>
+
+<div class="row">
+  <div>        
+    <a href="#" onclick="connectMetamask()" class="btn btn-primary">Connect Metamask 🦊</a>
+  </div>
+</div>
+
+<hr>
+
 <div>
   <p>Result 👇🏻</p>
   <p id="info"></p>
 </div>
+
 
   </body>
 </html>

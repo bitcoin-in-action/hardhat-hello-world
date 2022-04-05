@@ -29,4 +29,13 @@ contract HelloWorld {
         return "yes";
     }
 
+    receive() external payable {}
+
+    // Function to receive Ether. msg.data must be empty
+    fallback() external payable {}
+
+    function getContractAmount(address caller) public view onlyOwner(caller) returns (uint256){
+	    return address(this).balance;
+    }
+
 }
