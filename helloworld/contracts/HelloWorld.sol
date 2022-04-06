@@ -40,7 +40,7 @@ contract HelloWorld {
 
     function withdraw() external {
       address payable to = payable(msg.sender);
-      to.transfer(getContractAmount(msg.sender));
+      to.transfer(getContractAmount(to));
    }
 
 }

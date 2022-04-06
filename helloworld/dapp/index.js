@@ -2,10 +2,10 @@
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545/'));
 
 // Contract address and Abi
-var contractAddress = '0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82';
+var contractAddress = '0x68B1D87F95878fE05B998F19b66F4baba5De1aed';
 let currentAccount;
 
-const abi =  [
+const abi = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -224,6 +224,8 @@ function handleAccountsChanged(accounts) {
 function sendEther() {
 
   let val = $("#ether").val();
+
+  // It will then sign locally using the private key of that account, and send the transaction via web3.eth.sendSignedTransaction().
   web3.eth.sendTransaction({
     from: currentAccount,
     to: contractAddress,
@@ -295,16 +297,10 @@ function areYouTheAdminMetamask() {
     )
 }
 
-
 function withdraw() {
+
+  contract.methods.withdraw().send({
+    from: currentAccount
+  })
   
-  contract.methods.withdraw().call().then((res) => {
-      console.dir(res)
-      $('#info').html(res);
-    })
-    .catch(revertReason => {
-      console.log({ revertReason });
-      $('#info').text(revertReason);
-    }
-    )
 }
