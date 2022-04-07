@@ -1,8 +1,13 @@
 //hardHat node
-var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545/'));
+// var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545/'));
+
+
+var web3 = new Web3(new Web3.providers.HttpProvider(
+  'https://eth-ropsten.alchemyapi.io/v2/BrzyWixUmYhLoQbJ5OJXYhUXQIjueilo'
+));
 
 // Contract address and Abi
-var contractAddress = '0x68B1D87F95878fE05B998F19b66F4baba5De1aed';
+var contractAddress = '0xEcE3799FFF607C6061dBdcc9C74459410ce74c69';
 let currentAccount;
 
 const abi = [
@@ -111,7 +116,7 @@ web3.eth.getAccounts(function (err, accounts) {
     return;
   }
   if (accounts.length == 0) {
-    alert("No account found! Make sure the Ethereum client is configured properly.");
+    //alert("No account found! Make sure the Ethereum client is configured properly.");
     return;
   }
   account = accounts[0];
@@ -121,9 +126,33 @@ web3.eth.getAccounts(function (err, accounts) {
 
 //Hello World
 function registerSayHello() {
+
   contract.methods.sayHello().call().then(function (res) {
     $('#info').html(res);
   });
+}
+
+function sayHelloRPC() {
+
+  ethereum
+    .request({
+      method: 'eth_call',
+      params: [
+        {
+          from: currentAccount,
+          to: contractAddress,
+          data: web3.utils.keccak256("sayHello()").substr(0, 10) //'0xef5fb05b'
+        }, "latest"],
+    })
+    .then((txHash) => {
+      console.log(txHash);
+      $('#info').html(txHash).append("<br />" + web3.eth.abi.decodeParameter('string', txHash));
+    })
+    .catch((error) => {
+      console.error;
+      $('#info').text(JSON.stringify(error.message));
+    });
+
 }
 
 function areYouTheAdmin() {
@@ -153,8 +182,57 @@ function sayHelloMyName() {
       $('#info').text(revertReason);
     }
     )
+}
+
+function sayHelloMyNameRPC() {
+
+  const data = web3.eth.abi.encodeFunctionCall({
+    name: 'sayHelloMyName',
+    type: 'function',
+    inputs: [{
+      type: 'string',
+      name: '_name'
+    }]
+  }, [
+    $("#name").val(),
+  ]);
+  console.log(data);
+
+
+  // const method = web3.utils.keccak256("sayHelloMyName(string memory)").substr(0, 10); //'0x10a7b27a'
+  // let name = web3.utils.toHex($("#name").val());
+  // console.log(name)
+  // // const dataToPass = `${method}000000000000000000000000000000000000000000000000000000${name.substr(2)}`
+  // const dataToPass = `${method}0000000000000000000000000000000000000000000000000000000000666f6f`
+
+  // console.log(dataToPass);
+
+  ethereum
+    .request({
+      method: 'eth_call',
+      params: [
+        {
+          from: currentAccount,
+          to: contractAddress,
+          data: data
+        }, "latest"],
+    })
+    .then((txHash) => {
+      console.log(txHash);
+      $('#info').html(txHash).append("<br />" + web3.eth.abi.decodeParameter('string', txHash));
+    })
+    .catch((error) => {
+      console.error;
+      $('#info').text(JSON.stringify(error.message));
+
+
+
+
+    });
+
 
 }
+
 
 //Metamask
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -233,7 +311,10 @@ function sendEther() {
   }).on('transactionHash', function (hash) {
     $('#info').text(hash);
 
-  }).on('error', console.error);
+  }).on('error', function(error, receipt){
+    $('#info').text(error);
+    console.error;
+  });
 
 }
 
@@ -284,7 +365,34 @@ function checkBalance() {
 
 }
 
-function areYouTheAdminMetamask() {
+function checkBalanceRPC() {
+
+  const method = web3.utils.keccak256("getContractAmount(address)").substr(0, 10); //'0x97df76ee'
+  const data = method + web3.eth.abi.encodeParameter('address', currentAccount).substr(2);
+  console.log(data);
+
+  ethereum
+    .request({
+      method: 'eth_call',
+      params: [
+        {
+          from: currentAccount,
+          to: contractAddress,
+          data: data
+        }, "latest"],
+    })
+    .then((txHash) => {
+      console.log(txHash);
+      $('#info').html(txHash).append("<br />" + web3.utils.fromWei(web3.eth.abi.decodeParameter('uint256', txHash), 'ether') + " ETH");
+    })
+    .catch((error) => {
+      console.error;
+      $('#info').text(JSON.stringify(error.message));
+    });
+
+}
+
+function areYouTheAdminWeb3() {
 
   contract.methods.areYouTheAdmin(currentAccount)
     .call().then((res) => {
@@ -297,10 +405,72 @@ function areYouTheAdminMetamask() {
     )
 }
 
+function areYouTheAdminMetamaskRPC() {
+
+
+
+  const method = web3.utils.keccak256("areYouTheAdmin(address)").substr(0, 10); //'0x24283e49'
+
+  // The documentation then tells to take the parameter, encode it in hex and pad it left to 32 bytes.
+  //total 32 bytes => 64 char
+  //address length => 20 bytes (40 char)(without 0x)
+  //address length => 12 bytes (24 char) (without 0x)
+  //const paddingAddress = `${method}000000000000000000000000${currentAccount.substr(2)}`
+
+  //OR
+  const paddingAddress = method + web3.eth.abi.encodeParameter('address', currentAccount).substr(2);
+  console.log(paddingAddress);
+
+  ethereum
+    .request({
+      method: 'eth_call',
+      params: [
+        {
+          from: currentAccount,
+          to: contractAddress,
+          data: paddingAddress
+        }, "latest"],
+    })
+    .then((txHash) => {
+      console.log(txHash);
+      $('#info').html(txHash).append("<br />" + web3.eth.abi.decodeParameter('string', txHash));
+    })
+    .catch((error) => {
+      console.error;
+      $('#info').text(JSON.stringify(error.message));
+    });
+
+}
+
 function withdraw() {
 
   contract.methods.withdraw().send({
     from: currentAccount
-  })
-  
+  }).on('error', function (error, receipt) { // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
+    $('#info').text(error);
+  });
+
 }
+
+function withdrawRPC() {
+  ethereum
+    .request({
+      method: 'eth_sendTransaction',
+      params: [
+        {
+          from: currentAccount,
+          to: contractAddress,
+          data: web3.utils.keccak256("withdraw()").substr(2, 8)
+        },
+      ],
+    })
+    .then((txHash) => {
+      console.log(txHash);
+      $('#info').text(txHash);
+    })
+    .catch((error) => {
+      console.error;
+      $('#info').text(JSON.stringify(error.message));
+    });
+}
+

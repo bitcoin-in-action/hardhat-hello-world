@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <title>WeSchool</title>
+
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="./indexEther.js"></script>    
+  </head>
+
+  <body class="container">
+
+    <h1 class="page-header">WeSchool</h1>
+    
+    <div class="row">
+      <div>        
+        <a href="#" onclick="registerSayHello()" class="btn btn-primary">Hello World by EtherJs</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <h3 class="sub-header">Are you the Admin?</h3>
+        
+        <a href="#" onclick="areYouTheAdminWeb3()" class="btn btn-primary">Get from EtherJs</a>
+
+      </div>
+    </div>    
+
+
+    <div class="row">
+      <div>
+        <h3 class="sub-header">Insert your name</h3>
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <table>
+              <tr>
+                <td><label for="newInfo">name:</label> </td>
+                <td>
+                  <input class="form-control" id="name" style="width:500px">
+                </td>                          
+              </tr>
+            </table>
+          </div>
+          <a href="#" onclick="sayHelloMyName()" class="btn btn-primary">Set</a>
+        </form>        
+      </div>
+    </div> 
+
+<hr>
+
+
+<h3 style="color: orange;">Metamask Area</h3>
+  
+<p id="metamaskStatus"></p>
+
+<div class="row">
+  <div>
+    <h3 class="sub-header">Invia degli ether etherjs ⚠️</h3>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td><label for="admin">Ether:</label> </td>
+            <td>
+              <input class="form-control" type="number" placeholder="0.00" min="0" step="0.01" id="ether" style="width:500px" required="true">
+            </td>                          
+          </tr>
+        </table>
+      </div>
+      <a href="#" onclick="sendEther()" class="btn btn-primary">Send</a>
+    </form>
+  </div>
+</div> 
+
+
+<br>
+<div class="row">
+  <div>        
+    <a href="#" onclick="checkBalance()" class="btn btn-primary">Check Balance</a>    
+  </div>
+</div>
+
+<div class="row">
+  <div>        
+    <a href="#" onclick="connectMetamask()" class="btn btn-primary">Connect Metamask 🦊</a>
+  </div>
+</div>
+
+<div class="row">
+  <div>        
+    <a href="#" onclick="withdraw()" class="btn btn-primary">withdraw </a>    
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <p>Result 👇🏻</p>
+  <p id="info"></p>
+</div>
+
+
+  </body>
+</html>
