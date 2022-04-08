@@ -1,13 +1,15 @@
-//hardHat node
+//hardHat node If not use Metamask
+
 // var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545/'));
+// var web3 = new Web3(new Web3.providers.HttpProvider(
+//   'https://eth-ropsten.alchemyapi.io/v2/BrzyWixUmYhLoQbJ5OJXYhUXQIjueilo'
+// ));
 
-
-var web3 = new Web3(new Web3.providers.HttpProvider(
-  'https://eth-ropsten.alchemyapi.io/v2/BrzyWixUmYhLoQbJ5OJXYhUXQIjueilo'
-));
+var web3;
 
 // Contract address and Abi
-var contractAddress = '0xEcE3799FFF607C6061dBdcc9C74459410ce74c69';
+ var contractAddress = '0xEcE3799FFF607C6061dBdcc9C74459410ce74c69'; //ropsten
+//var contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 let currentAccount;
 
 const abi = [
@@ -103,26 +105,25 @@ const abi = [
   }
 ]
 
-//contract instance
-contract = new web3.eth.Contract(abi, contractAddress);
-web3.eth.handleRevert = true
+
+
 
 // Accounts
 var account;
-console.log(contract.methods)
-web3.eth.getAccounts(function (err, accounts) {
-  if (err != null) {
-    alert("Error retrieving accounts.");
-    return;
-  }
-  if (accounts.length == 0) {
-    //alert("No account found! Make sure the Ethereum client is configured properly.");
-    return;
-  }
-  account = accounts[0];
-  console.log('Account: ' + account);
-  web3.eth.defaultAccount = account;
-});
+// console.log(contract.methods)
+// web3.eth.getAccounts(function (err, accounts) {
+//   if (err != null) {
+//     alert("Error retrieving accounts.");
+//     return;
+//   }
+//   if (accounts.length == 0) {
+//     //alert("No account found! Make sure the Ethereum client is configured properly.");
+//     return;
+//   }
+//   account = accounts[0];
+//   console.log('Account: ' + account);
+//   web3.eth.defaultAccount = account;
+// });
 
 //Hello World
 function registerSayHello() {
@@ -275,6 +276,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     ethereum.on("disconnect", (error) => {
       console.log(`Disconnected from network ${error}`);
     });
+
+    //Essentially, we check if window.ethereum exists, then create a window.web3 object with our own version of web3, using the window.ethereum object as the input provider .
+    //In this case, the await window.ethereum.send({method: 'eth_requestAccounts'}) function calls the pop-up UI dialogue that asks the user’s permission to connect the dApp to MetaMask.
+    window.web3 = new Web3(window.ethereum);
+    //contract instance
+    contract = new web3.eth.Contract(abi, contractAddress);
+    web3.eth.handleRevert = true
 
 
   } else {

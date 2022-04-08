@@ -2,7 +2,8 @@
 // var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545/'));
 
 let privateKey = "f2e850c6beb2b668173d84735fae81e536ec38b93f77aa7342d97676ab535ce7"
-var contractAddress = '0xEcE3799FFF607C6061dBdcc9C74459410ce74c69';
+//var contractAddress = '0xEcE3799FFF607C6061dBdcc9C74459410ce74c69'; //ropsten
+var contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 let currentAccount;
 let contract;
 const abi = [
@@ -98,14 +99,6 @@ const abi = [
   }
 ]
 
-//contract instance
-
-// const signer = customHttpProvider.getSigner();
-// const contract = new ethers.Contract(contractAddress, abi, signer);
-
-// console.log(contract);
-
-
 //Hello World
 function registerSayHello() {
   contract.sayHello().then(function (res) {
@@ -121,7 +114,7 @@ function areYouTheAdminWeb3() {
   })
     .catch(revertReason => {
       console.log({ revertReason });
-      $('#info').text(revertReason);
+      $('#info').text(revertReason.data.message);
     }
     )
 }
