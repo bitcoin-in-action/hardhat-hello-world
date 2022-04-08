@@ -207,10 +207,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-
     const signer = provider.getSigner();
     wallet = new ethers.Wallet(privateKey, provider)
-
     contract = new ethers.Contract(contractAddress, abi, signer);
 
 

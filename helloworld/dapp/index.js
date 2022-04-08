@@ -370,7 +370,6 @@ function checkBalance() {
       $('#info').text(revertReason);
     }
     );
-
 }
 
 function checkBalanceRPC() {
@@ -414,9 +413,6 @@ function areYouTheAdminWeb3() {
 }
 
 function areYouTheAdminMetamaskRPC() {
-
-
-
   const method = web3.utils.keccak256("areYouTheAdmin(address)").substr(0, 10); //'0x24283e49'
 
   // The documentation then tells to take the parameter, encode it in hex and pad it left to 32 bytes.
