@@ -105,7 +105,7 @@ export default function BuyNumber({
         <hr></hr>
 
         <div style={{ margin: 8 }}>
-          <p>Get Amount</p>
+          <p>Amount in Smart Contract</p>
           <Button
             style={{ marginTop: 8 }}
             onClick={async () => {
@@ -115,8 +115,7 @@ export default function BuyNumber({
                 if (contractAmount) {
                   setContractAmount(contractAmount)
                 }
-                console.log("........")
-                console.log(_contractAmount)
+
               } catch (error) {
                 console.log(JSON.stringify(error))
                 notification.error({
@@ -130,8 +129,8 @@ export default function BuyNumber({
             Get Amount
           </Button>
           <p>
-
-            {_contractAmount.length > 0 ? ethers.utils.formatEther(_contractAmount) : '0'} ether
+            
+            {_contractAmount._hex ? ethers.utils.formatEther(_contractAmount) : '0'} ether
 
           </p>
 
@@ -139,7 +138,7 @@ export default function BuyNumber({
 
         <hr></hr>
         <div style={{ margin: 8 }}>
-          <p>Withdraw</p>
+          <p>Withdraw The Amount</p>
           <Button
             style={{ marginTop: 8 }}
             onClick={async () => {
