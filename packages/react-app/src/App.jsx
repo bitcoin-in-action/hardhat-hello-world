@@ -29,7 +29,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, BuyNumber, ExampleUI, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -167,7 +167,7 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  const purpose = useContractReader(readContracts, "NumbersMarketContract", "purpose");
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -260,6 +260,9 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
+        <Menu.Item key="/buyNumber">
+          <Link to="/buyNumber">Buy Number</Link>
+        </Menu.Item>
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
         </Menu.Item>
@@ -282,6 +285,26 @@ function App(props) {
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
         </Route>
+
+        <Route exact path="/buyNumber">
+          {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
+          <BuyNumber
+             
+             address={address}
+             userSigner={userSigner}
+             mainnetProvider={mainnetProvider}
+             localProvider={localProvider}
+             yourLocalBalance={yourLocalBalance}
+             price={price}
+             tx={tx}
+             writeContracts={writeContracts}
+             readContracts={readContracts}
+             purpose={purpose}
+             userSigner={userSigner}
+             
+          />
+        </Route>
+
         <Route exact path="/debug">
           {/*
                 🎛 this scaffolding is full of commonly used components
@@ -290,7 +313,7 @@ function App(props) {
             */}
 
           <Contract
-            name="YourContract"
+            name="NumbersMarketContract"
             price={price}
             signer={userSigner}
             provider={localProvider}
