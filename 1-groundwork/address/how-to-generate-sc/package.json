@@ -1,0 +1,19 @@
+{
+  "name": "how-to-generate-sc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "npm": "8.5.5",
+    "node": "16.15.0"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "js-sha3": "^0.8.0",
+    "rlp": "^3.0.0"
+  }
+}
