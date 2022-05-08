@@ -1,0 +1,17 @@
+{
+  "name": "rlp",
+  "version": "1.0.0",
+  "description": "In questo esempio utilizziamo https://www.npmjs.com/package/rlp per serializzare/deserializzare seguendo le regole RLP",
+  "engines": {
+    "npm": "8.5.5",
+    "node": "16.15.0"
+  },
+  "scripts": {
+    "rlp": "rlp"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rlp": "^3.0.0"
+  }
+}
