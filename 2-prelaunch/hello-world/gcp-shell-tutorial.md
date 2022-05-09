@@ -8,6 +8,11 @@ Welcome to the shell!
 2. wait for blockscout explorer loaded
 3. deploy your first contract
 
+```sh
+cd 2-prelaunch/hello-world
+```
+
+to enter our hello world workspace!
 ## docker-compose up
 
 Update it before...

@@ -2,9 +2,13 @@
 
 npm install -g npx --allow-root --unsafe-perm=true --force
 
+echo "NPM INSTALL NPX WITH ALLOW ROOT DONE"
+
 cd helloworld
 
+echo "NPM INSTALL IN ${PWD}"
 npm install
+echo "NPM INSTALL FINISHED YOU CAN GO AHEAD!!!"
 
 npx hardhat node --hostname 0.0.0.0
 
