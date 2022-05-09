@@ -1,0 +1,16 @@
+ports:
+  - port: 7545
+    visibility: public
+    onOpen: open-browser
+  - port: 4000
+    visibility: public
+    onOpen: open-browser
+  - port: 7432
+    visibility: private
+    onOpen: ignore
+  - port: 44057
+    visibility: private
+    onOpen: ignore
+  - port: 3000
+    visibility: private
+    onOpen: ignore
